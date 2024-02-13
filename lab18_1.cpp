@@ -7,23 +7,9 @@ struct Rect{
 };
 
 double overlap(Rect a,Rect b){
-	if( abs(a.x+a.w) > abs(b.x+b.w)){
-		return b.w*b.h;
-	}
-	else if (abs(a.x - b.x) < a.w || a.x - b.x > 0){
-		double width = abs((a.x + a.w)-b.x);
-		double height = abs((a.y+ a.h)-b.y) ;
-		return width * height ;
-	}
-	else if(abs(a.x - b.x) < a.w ){
-		double width = abs((b.x + b.w)-a.x);
-		double height = abs((b.y+ b.h)-a.y) ;
-		//cout << width << " "<< height << endl;
-		return width * height ;
-	}
-	else{
-		return 0;
-	}
+    double width = max(0.0, min(a.x + a.w, b.x + b.w) - max(a.x, b.x));
+    double height = max(0.0, min(a.y, b.y) - max(a.y - a.h, b.y - b.h));
+    return width * height;
 
 }
 int main(){
